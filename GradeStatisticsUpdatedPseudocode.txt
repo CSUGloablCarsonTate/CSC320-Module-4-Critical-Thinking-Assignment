@@ -1,0 +1,140 @@
+BEGIN
+
+    SET NUMBER_OF_GRADES = 10
+
+    CREATE Scanner object for user input
+
+    DISPLAY "GRADE STATISTICS PROGRAM"
+
+    DO
+
+        CREATE grades array with 10 elements
+
+        CALL getGrades(input, grades)
+
+        SET average = calculateAverage(grades)
+
+        SET maximum = calculateMaximum(grades)
+
+        SET minimum = calculateMinimum(grades)
+
+        CALL displayResults(average, maximum, minimum)
+
+        DISPLAY "Calculate another set of grades? (yes/no): "
+
+        INPUT continueChoice
+
+    WHILE continueChoice equals "yes" (ignore capitalization)
+
+    DISPLAY "Thank you for using the Grade Statistics Program."
+
+    CLOSE Scanner
+
+END MAIN
+
+
+BEGIN getGrades(input, grades)
+
+    FOR each position in grades array
+
+        REPEAT
+
+            DISPLAY "Enter grade number: "
+
+            INPUT gradeEntry
+
+            IF gradeEntry is not a valid number THEN
+
+                DISPLAY "Invalid entry. Please enter a numeric grade."
+
+            ELSE IF gradeEntry is not a finite number THEN
+
+                DISPLAY "Invalid entry. Please enter a  number."
+
+            ELSE IF gradeEntry is less than 0 OR greater than 100 THEN
+
+                DISPLAY "The grade value must be between 0 and 100. Please try again."
+
+            ELSE
+
+                STORE gradeEntry in current array position
+
+                EXIT validation loop
+
+            END IF
+
+        UNTIL valid grade is entered
+
+    END FOR
+
+END getGrades
+
+
+BEGIN calculateAverage(grades)
+
+    SET total = 0
+
+    FOR each grade in grades
+
+        ADD grade to total
+
+    END FOR
+
+    RETURN total divided by number of grades
+
+END calculateAverage
+
+
+BEGIN calculateMaximum(grades)
+
+    SET maximum = first grade in array
+
+    FOR each grade in grades
+
+        IF grade is greater than maximum THEN
+
+            SET maximum = grade
+
+        END IF
+
+    END FOR
+
+    RETURN maximum
+
+END calculateMaximum
+
+
+BEGIN calculateMinimum(grades)
+
+    SET minimum = first grade in array
+
+    FOR each grade in grades
+
+        IF grade is less than minimum THEN
+
+            SET minimum = grade
+
+        END IF
+
+    END FOR
+
+    RETURN minimum
+
+END calculateMinimum
+
+
+BEGIN displayResults(average, maximum, minimum)
+
+    DISPLAY "GRADE STATISTICS RESULTS"
+
+    DISPLAY "Number of Grades: " + NUMBER_OF_GRADES
+
+    DISPLAY average formatted to two decimal places
+
+    DISPLAY maximum formatted to two decimal places
+
+    DISPLAY minimum formatted to two decimal places
+
+    DISPLAY "===================================="
+
+END 
